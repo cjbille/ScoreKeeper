@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var scoreboard = Scoreboard()
-    private var startingPoints = 0
+    @State private var startingPoints = 0
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -17,6 +17,7 @@ struct ContentView: View {
                             .font(.title)
                             .bold()
                             .padding(.bottom)
+            SettingsView(startingPoints: $startingPoints)
             Grid {
                 GridRow {
                     Text("Player")
@@ -26,7 +27,13 @@ struct ContentView: View {
                 .font(.headline)
                 ForEach($scoreboard.players) { $player in
                     GridRow {
-                        TextField("Name", text: $player.name)
+                        HStack {
+                            if scoreboard.winners.contains(player) {
+                                Image(systemName: "crown.fill")
+                                    .foregroundStyle(Color.yellow)
+                            }
+                            TextField("Name", text: $player.name)
+                        }
                         Text("\(player.score)")
                         Stepper("\(player.score)", value: $player.score)
                             .labelsHidden()
