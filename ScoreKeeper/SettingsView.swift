@@ -37,6 +37,7 @@ struct SettingsView: View {
 }
 
 #Preview {
-    @Previewable @State var startingPoints = 10	
-    SettingsView(startingPoints: $startingPoints)
+    @Previewable @State var startingPoints = 10
+    @Previewable @State var doesHighestScoreWin = true
+    SettingsView(doesHighestScoreWin: $doesHighestScoreWin, startingPoints: $startingPoints)
 }
